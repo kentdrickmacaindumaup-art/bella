@@ -1,0 +1,425 @@
+/* =========================================
+   LOVE LETTER ENVELOPE
+   RESPONSIVE PC + PHONE
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background: #f7d9e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   ENVELOPE
+   ========================================= */
+
+#envelope {
+    position: relative;
+    width: 420px;
+    height: 270px;
+    max-width: 90vw;
+    max-height: 75vh;
+    margin: auto;
+}
+
+
+/* =========================================
+   ENVELOPE FRONT
+   ========================================= */
+
+.front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+
+/* Envelope pocket */
+.front.pocket {
+    background: #e89aaa;
+    border-radius: 0 0 10px 10px;
+    z-index: 5;
+    clip-path: polygon(
+        0 0,
+        50% 55%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+/* Envelope flap */
+.front.flap {
+    background: #efacbb;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 58%
+    );
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 6;
+}
+
+
+/* =========================================
+   LETTER
+   ========================================= */
+
+.letter {
+    position: absolute;
+
+    width: 88%;
+    height: 92%;
+
+    left: 6%;
+    top: 4%;
+
+    background: #fffaf0;
+
+    border-radius: 5px;
+
+    z-index: 3;
+
+    transition:
+        transform 0.7s ease,
+        z-index 0.1s linear 0.35s;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   LETTER CONTENT / SCROLLING
+   ========================================= */
+
+.letter-content {
+    width: 100%;
+    height: 100%;
+
+    padding: 25px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    color: #4d3035;
+
+    font-size: 16px;
+    line-height: 1.65;
+
+    text-align: left;
+
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+
+    scrollbar-width: thin;
+}
+
+
+/* Paragraphs */
+.letter-content p {
+    margin: 0 0 18px 0;
+}
+
+
+/* =========================================
+   OLD LINE CLASSES
+   ========================================= */
+
+.words {
+    position: static;
+    width: 100%;
+
+    margin: 0 0 18px 0;
+
+    color: #4d3035;
+
+    font-size: 16px;
+    line-height: 1.65;
+
+    text-align: left;
+}
+
+
+/* =========================================
+   OPEN / CLOSE ANIMATION
+   ========================================= */
+
+#envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+#envelope.open .letter {
+    transform: translateY(-145px);
+    z-index: 4;
+}
+
+#envelope.close .letter {
+    transform: translateY(0);
+    z-index: 3;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+    border: none;
+    outline: none;
+
+    padding: 10px 20px;
+
+    margin: 10px 5px;
+
+    border-radius: 20px;
+
+    background: #d86f86;
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #c95e76;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================
+   BUTTON CONTAINER
+   ========================================= */
+
+.buttons {
+    position: fixed;
+
+    bottom: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 20;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   HEARTS
+   ========================================= */
+
+.heart {
+    position: absolute;
+
+    color: #e86f8a;
+
+    font-size: 20px;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    animation: floatHeart 3s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateY(-12px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    #envelope {
+        width: 360px;
+        height: 235px;
+    }
+
+    .letter-content {
+        padding: 20px;
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .words {
+        font-size: 15px;
+    }
+
+    #envelope.open .letter {
+        transform: translateY(-125px);
+    }
+}
+
+
+/* =========================================
+   PHONE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        min-height: 100svh;
+
+        align-items: center;
+
+        padding: 20px 10px 100px;
+    }
+
+    #envelope {
+        width: min(350px, 92vw);
+        height: min(225px, 60vw);
+
+        max-height: none;
+    }
+
+
+    /* Letter stays inside envelope */
+    .letter {
+        width: 88%;
+        height: 90%;
+
+        left: 6%;
+        top: 5%;
+    }
+
+
+    /* Mobile scrolling */
+    .letter-content {
+        width: 100%;
+        height: 100%;
+
+        padding: 17px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        font-size: 14px;
+        line-height: 1.55;
+
+        touch-action: pan-y;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .letter-content p {
+        margin-bottom: 15px;
+    }
+
+
+    .words {
+        font-size: 14px;
+        line-height: 1.55;
+
+        margin-bottom: 15px;
+    }
+
+
+    /* Open animation on phone */
+    #envelope.open .letter {
+        transform: translateY(-115px);
+    }
+
+
+    /* Buttons */
+    .buttons {
+        bottom: 15px;
+    }
+
+    button {
+        padding: 9px 17px;
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-width: 380px) {
+
+    #envelope {
+        width: 92vw;
+        height: 58vw;
+    }
+
+    .letter-content {
+        padding: 13px;
+
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .words {
+        font-size: 13px;
+    }
+
+    #envelope.open .letter {
+        transform: translateY(-95px);
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+   ========================================= */
+
+@media (max-height: 650px) and (max-width: 600px) {
+
+    body {
+        align-items: flex-start;
+        padding-top: 35px;
+    }
+
+    #envelope.open .letter {
+        transform: translateY(-80px);
+    }
+}
